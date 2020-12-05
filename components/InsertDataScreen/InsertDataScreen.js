@@ -10,12 +10,17 @@ import {
     Button,
     Image,
 } from 'react-native';
+
 import { styles } from '../styles/styles';
 import ImagePicker from 'react-native-image-picker';
 import { Icon } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
+import axios from 'axios';
+import { SERVER_IP } from '../constants';
 
 export function InsertDataScreen({ navigation }) {
+    
+    var [fileUri, SetFileuri] = React.useState();
     const [InsertData, setInsertData] = React.useState({
         ID: '',
         Name: '',
@@ -87,11 +92,27 @@ export function InsertDataScreen({ navigation }) {
         });
     };
 
-    insertAllHandle = (Id, Name, Age, cnic, PhNo, Addr, Gen, Carreg, Email) => {
-        Alert.alert(Id + Name + Age + cnic + PhNo + Addr + Gen + Carreg + Email);
+    insertAllHandle = (Name, Age, cnic, PhNo, Addr, Gen, Carreg, Email) => {
+        console.log("a")
+        axios.post("http://"+SERVER_IP+":5000/citizen", {
+            "name": Name,
+            "age": Age,
+            "cnic": cnic,
+            "address": Addr,
+            "phonenumber": PhNo,
+            "gender": Gen,
+            "carreg": Carreg,
+            "email": Email,
+            "image1_name": fileUri,
+            "image2_name": "fdfjhdsjkfldsh",
+            "image3_name": "ifjhsdjklfhdfjkfhdf"
+        }).then(res => {
+            alert("successfully inserted");
+        }).catch(err => {
+            console.log(err);
+            alert("error bois" + err);
+        });
     };
-
-    var [fileUri, SetFileuri] = React.useState();
 
     const chooseImage = () => {
         let options = {
@@ -116,9 +137,6 @@ export function InsertDataScreen({ navigation }) {
             } else {
                 //SetFileuri(response.uri) //update state to update Image
                 SetFileuri({ fileUri: response.uri });
-                //const source = { uri: response.uri };
-
-                //this.setState({ avatarSource: source, });
             }
         });
     };
@@ -130,6 +148,7 @@ export function InsertDataScreen({ navigation }) {
         <TextInput style = { styles.inputText }
         placeholder = "ID..."
         placeholderTextColor = "#003f5c"
+        value={InsertData.ID}
         onChangeText = {
             (val) => IDChange(val)
         }/>  
@@ -138,6 +157,7 @@ export function InsertDataScreen({ navigation }) {
         <TextInput style = { styles.inputText }
         placeholder = "Name..."
         placeholderTextColor = "#003f5c"
+        value={InsertData.Name}
         onChangeText = {
             (val) => NameChange(val)
         }
@@ -148,6 +168,7 @@ export function InsertDataScreen({ navigation }) {
         <TextInput style = { styles.inputText }
         placeholder = "Age..."
         placeholderTextColor = "#003f5c"
+        value={InsertData.Age}
         onChangeText = {
             (val) => AgeChange(val)
         }
@@ -158,6 +179,7 @@ export function InsertDataScreen({ navigation }) {
         <TextInput style = { styles.inputText }
         placeholder = "CNIC..."
         placeholderTextColor = "#003f5c"
+        value={InsertData.CNIC}
         onChangeText = {
             (val) => CNICChange(val)
         }
@@ -168,6 +190,7 @@ export function InsertDataScreen({ navigation }) {
         <TextInput style = { styles.inputText }
         placeholder = "Address..."
         placeholderTextColor = "#003f5c"
+        value={InsertData.Address}
         onChangeText = {
             (val) => AddressChange(val)
         }
@@ -178,6 +201,7 @@ export function InsertDataScreen({ navigation }) {
         <TextInput style = { styles.inputText }
         placeholder = "Phone Number..."
         placeholderTextColor = "#003f5c"
+        value={InsertData.Phone_Number}
         onChangeText = {
             (val) => PhNoChange(val)
         }
@@ -188,6 +212,7 @@ export function InsertDataScreen({ navigation }) {
         <TextInput style = { styles.inputText }
         placeholder = "Gender..."
         placeholderTextColor = "#003f5c"
+        value={InsertData.Gender}
         onChangeText = {
             (val) => GenderChange(val)
         }
@@ -198,6 +223,7 @@ export function InsertDataScreen({ navigation }) {
         <TextInput style = { styles.inputText }
         placeholder = "Car Reg no..."
         placeholderTextColor = "#003f5c"
+        value={InsertData.Carreg}
         onChangeText = {
             (val) => CarregChange(val)
         }
@@ -208,6 +234,7 @@ export function InsertDataScreen({ navigation }) {
         <TextInput style = { styles.inputText }
         placeholder = "email..."
         placeholderTextColor = "#003f5c"
+        value={InsertData.email}
         onChangeText = {
             (val) => EmailChange(val)
         }
