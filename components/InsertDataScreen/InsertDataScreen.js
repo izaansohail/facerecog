@@ -20,7 +20,9 @@ import { SERVER_IP } from '../constants';
 
 export function InsertDataScreen({ navigation }) {
     
-    var [fileUri, SetFileuri] = React.useState();
+    var [fileUri1, SetFileuri1] = React.useState({});
+    var [fileUri2, SetFileuri2] = React.useState({});
+    var [fileUri3, SetFileuri3] = React.useState({});
     const [InsertData, setInsertData] = React.useState({
         ID: '',
         Name: '',
@@ -64,7 +66,7 @@ export function InsertDataScreen({ navigation }) {
     PhNoChange = (val) => {
         setInsertData({
             ...InsertData,
-            CNIC: val,
+            Phone_Number: val,
         });
     };
     AddressChange = (val) => {
@@ -88,11 +90,11 @@ export function InsertDataScreen({ navigation }) {
     EmailChange = (val) => {
         setInsertData({
             ...InsertData,
-            Email: val,
+            email: val,
         });
     };
 
-    insertAllHandle = (Name, Age, cnic, PhNo, Addr, Gen, Carreg, Email) => {
+    insertAllHandle = (Id, Name, Age, cnic, Addr, PhNo, Gen, Carreg, Email) => {
         console.log("a")
         axios.post("http://"+SERVER_IP+":5000/citizen", {
             "name": Name,
@@ -103,18 +105,20 @@ export function InsertDataScreen({ navigation }) {
             "gender": Gen,
             "carreg": Carreg,
             "email": Email,
-            "image1_name": fileUri,
-            "image2_name": "fdfjhdsjkfldsh",
-            "image3_name": "ifjhsdjklfhdfjkfhdf"
+            "image1_name": fileUri1.fileUri1,
+            "image2_name": fileUri2.fileUri2,
+            "image3_name": fileUri3.fileUri3
         }).then(res => {
             alert("successfully inserted");
         }).catch(err => {
             console.log(err);
             alert("error bois" + err);
         });
+         //alert(fileUri1+ fileUri2+ fileUri3);
+         //console.log(fileUri1);
     };
 
-    const chooseImage = () => {
+    const chooseImage1 = () => {
         let options = {
             title: 'Select Avatar',
             cameraType: 'front',
@@ -136,7 +140,61 @@ export function InsertDataScreen({ navigation }) {
                 alert(response.customButton);
             } else {
                 //SetFileuri(response.uri) //update state to update Image
-                SetFileuri({ fileUri: response.uri });
+                SetFileuri1({ fileUri1: response.uri });
+            }
+        });
+    };
+
+    const chooseImage2 = () => {
+        let options = {
+            title: 'Select Avatar',
+            cameraType: 'front',
+            mediaType: 'photo',
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+        };
+
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+                alert(response.customButton);
+            } else {
+                //SetFileuri(response.uri) //update state to update Image
+                SetFileuri2({ fileUri2: response.uri });
+            }
+        });
+    };
+
+    const chooseImage3 = () => {
+        let options = {
+            title: 'Select Avatar',
+            cameraType: 'front',
+            mediaType: 'photo',
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+        };
+
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+                alert(response.customButton);
+            } else {
+                //SetFileuri(response.uri) //update state to update Image
+                SetFileuri3({ fileUri3: response.uri });
             }
         });
     };
@@ -243,18 +301,39 @@ export function InsertDataScreen({ navigation }) {
 
         <View style={{ alignSelf: 'center', marginTop: 10}}>
             <Image
-              style={{ height: 70, width: 0, borderRadius: 0, }}
-              source={{fileUri }} 
+              style={{ height: 100, width: 80, borderRadius: 0, }}
+              source={{uri: fileUri1.fileUri1}} 
             />
-            <TouchableOpacity style={styles.addPictureIcon} onPress={chooseImage}>
-            <Icon name="camera" size={20} />
+            <TouchableOpacity /*style={styles.addPictureIcon}*/ onPress={chooseImage1}>
+            {/* <Icon name="camera" size={20} /> */}
+            <Text>Choose Image 1</Text>
+            {/* <Text>{fileUri1}</Text> */}
+            </TouchableOpacity>
+          </View>
+          <View style={{ alignSelf: 'center', marginTop: 20}}>
+          <Image
+              style={{ height: 100, width: 80, borderRadius: 0, }}
+              source={{uri: fileUri2.fileUri2}} 
+            />
+            <TouchableOpacity /*style={styles.addPictureIcon}*/ onPress={chooseImage2}>
+            {/* <Icon name="camera" size={20} /> */}
+            <Text>Choose Image 2</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{ alignSelf: 'center', marginTop: 20}}>
+          <Image
+              style={{ height: 100, width: 80, borderRadius: 0, }}
+              source={{uri: fileUri3.fileUri3}} 
+            />
+            <TouchableOpacity /*style={styles.addPictureIcon}*/ onPress={chooseImage3}>
+            {/* <Icon name="camera" size={20} /> */}
+            <Text>Choose Image 3</Text>
             </TouchableOpacity>
           </View>
 
           <TouchableOpacity style={styles.loginBtn} 
             onPress={() => {insertAllHandle(
               InsertData.ID,
-              InsertData.Name,
               InsertData.Name,
               InsertData.Age,
               InsertData.CNIC,

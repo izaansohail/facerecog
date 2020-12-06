@@ -33,9 +33,18 @@ export function loginScreen({ navigation }) {
         });
     };
 
+    clearState = () => {
+        setData({
+            ...data,
+            username: '',
+            password: ''
+        });
+    }
+
     loginHandle = (userName, password) => {
         if (userName === 'admin' && password === 'Password') {
             Alert.alert('Login Successful');
+            clearState();
             navigation.navigate('Home');
             return;
         } else {
@@ -54,6 +63,7 @@ export function loginScreen({ navigation }) {
         onChangeText = {
             (val) => textInputChange(val)
         }
+        value = {data.username}
         />
         </View> 
         <View style = { styles.inputView } >
@@ -64,6 +74,7 @@ export function loginScreen({ navigation }) {
         onChangeText = {
             (val) => handlePasswordChange(val)
         }
+        value = {data.password}
         />  
         </View>
 
