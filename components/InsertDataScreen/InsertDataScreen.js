@@ -23,16 +23,21 @@ export function InsertDataScreen({ navigation }) {
     var [fileUri1, SetFileuri1] = React.useState({});
     var [fileUri2, SetFileuri2] = React.useState({});
     var [fileUri3, SetFileuri3] = React.useState({});
+    var [responseImage, setResponseImage] = React.useState({
+        Image1: '',
+        Image2: '',
+        Image3: '',
+    })
     const [InsertData, setInsertData] = React.useState({
-        ID: '',
-        Name: '',
-        Age: '',
-        CNIC: '',
-        Address: '',
-        Phone_Number: '',
-        Gender: '',
-        Carreg: '',
-        email: '',
+        ID: '2',
+        Name: '2',
+        Age: '2',
+        CNIC: '2',
+        Address: '2',
+        Phone_Number: '2',
+        Gender: '2',
+        Carreg: '2',
+        email: '2',
         image1: '',
         image2: '',
         image3: '',
@@ -94,8 +99,8 @@ export function InsertDataScreen({ navigation }) {
         });
     };
 
-    insertAllHandle = (Id, Name, Age, cnic, Addr, PhNo, Gen, Carreg, Email) => {
-        console.log("a")
+    insertAllHandle = (Name, Age, cnic, Addr, PhNo, Gen, Carreg, Email) => {
+        console.log(Object.keys(responseImage.Image1))
         axios.post("http://"+SERVER_IP+":5000/citizen", {
             "name": Name,
             "age": Age,
@@ -105,9 +110,9 @@ export function InsertDataScreen({ navigation }) {
             "gender": Gen,
             "carreg": Carreg,
             "email": Email,
-            "image1_name": fileUri1.fileUri1,
-            "image2_name": fileUri2.fileUri2,
-            "image3_name": fileUri3.fileUri3
+            "image1_name": responseImage.Image1.data,
+            "image2_name": responseImage.Image2.data,
+            "image3_name": responseImage.Image3.data
         }).then(res => {
             alert("successfully inserted");
         }).catch(err => {
@@ -115,7 +120,7 @@ export function InsertDataScreen({ navigation }) {
             alert("error bois" + err);
         });
          //alert(fileUri1+ fileUri2+ fileUri3);
-         //console.log(fileUri1);
+         //console.log(responseImage.Image1);
     };
 
     const chooseImage1 = () => {
@@ -141,6 +146,10 @@ export function InsertDataScreen({ navigation }) {
             } else {
                 //SetFileuri(response.uri) //update state to update Image
                 SetFileuri1({ fileUri1: response.uri });
+                setResponseImage({
+                    ...responseImage,
+                    Image1: response
+                })
             }
         });
     };
@@ -168,6 +177,10 @@ export function InsertDataScreen({ navigation }) {
             } else {
                 //SetFileuri(response.uri) //update state to update Image
                 SetFileuri2({ fileUri2: response.uri });
+                setResponseImage({
+                    ...responseImage,
+                    Image2: response
+                })
             }
         });
     };
@@ -195,22 +208,17 @@ export function InsertDataScreen({ navigation }) {
             } else {
                 //SetFileuri(response.uri) //update state to update Image
                 SetFileuri3({ fileUri3: response.uri });
+                setResponseImage({
+                    ...responseImage,
+                    Image3: response
+                })
             }
         });
     };
 
     return ( 
     <ScrollView>
-        <View style = { styles.container } >
-        <View style = { styles.inputView } >
-        <TextInput style = { styles.inputText }
-        placeholder = "ID..."
-        placeholderTextColor = "#003f5c"
-        value={InsertData.ID}
-        onChangeText = {
-            (val) => IDChange(val)
-        }/>  
-        </View>
+        <View style = { styles.container }>
         <View style = { styles.inputView } >
         <TextInput style = { styles.inputText }
         placeholder = "Name..."
@@ -333,7 +341,6 @@ export function InsertDataScreen({ navigation }) {
 
           <TouchableOpacity style={styles.loginBtn} 
             onPress={() => {insertAllHandle(
-              InsertData.ID,
               InsertData.Name,
               InsertData.Age,
               InsertData.CNIC,
@@ -341,7 +348,7 @@ export function InsertDataScreen({ navigation }) {
               InsertData.Phone_Number,
               InsertData.Gender,
               InsertData.Carreg,
-              InsertData.Email
+              InsertData.email
               )}}
               >
             <Text style={styles.loginText}>INSERT</Text>

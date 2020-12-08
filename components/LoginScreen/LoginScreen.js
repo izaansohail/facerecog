@@ -15,8 +15,8 @@ import { styles } from '../styles/styles';
 
 export function loginScreen({ navigation }) {
     const [data, setData] = React.useState({
-        username: '',
-        password: '',
+        username: 'admin',
+        password: 'Password',
     });
 
     textInputChange = (val) => {
@@ -43,12 +43,10 @@ export function loginScreen({ navigation }) {
 
     loginHandle = (userName, password) => {
         if (userName === 'admin' && password === 'Password') {
-            Alert.alert('Login Successful');
             clearState();
             navigation.navigate('Home');
             return;
         } else {
-            Alert.alert('Wrong Input!');
             return;
         }
     };

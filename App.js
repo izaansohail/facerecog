@@ -23,6 +23,7 @@ import { MatchFaceScreen } from './components/MatchFaceScreen/MatchFaceScreen';
 import { HomeScreen } from './components/HomeScreen/HomeScreen';
 import { ViewScreen } from './components/ViewScreen/ViewScreen';
 import { styles } from './components/styles/styles';
+import { ViewInfoScreen } from './components/ViewScreen/ViewInfoScreen';
 
 const Stack = createStackNavigator();
 
@@ -54,6 +55,9 @@ function App() {
         <Stack.Screen name = "ViewData"
         component = { ViewScreen }
         /> 
+        <Stack.Screen name = "ViewInfo"
+        component = { ViewInfoScreen }
+        />
         </Stack.Navigator> 
         </NavigationContainer>
     );
