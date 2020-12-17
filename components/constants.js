@@ -1,1 +1,2 @@
-export const SERVER_IP="192.168.1.8";
+export const SERVER_IP="192.168.186.1";
+export const background = require("../components/images/bg.png");

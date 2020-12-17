@@ -9,49 +9,52 @@ import {
     TextInput,
     Button,
     Image,
+    ImageBackground
 } from 'react-native';
 import { styles } from '../styles/styles';
+import { background } from '../constants'
 
 
 export function HomeScreen({ navigation }) {
     return (
         <View style = { styles.container } >
-        
+            <ImageBackground source= {background} style = { styles.backgroundImage}  >
+
         <TouchableOpacity style = { styles.homeScreenBtn }
         onPress = {
             () => navigation.push('Insert')
         } >
-        <Text > Insert Data </Text>  
+        <Text style={ styles.homeText}> Insert Data </Text>
         </TouchableOpacity>
 
         <TouchableOpacity style = { styles.homeScreenBtn }
         onPress = {
             () => navigation.push('Delete')
         } >
-        <Text > Delete Data </Text>  
+        <Text style={ styles.homeText}> Delete Data </Text>
         </TouchableOpacity>
 
         <TouchableOpacity style = { styles.homeScreenBtn }
         onPress = {
             () => navigation.push('Update')
         } >
-        <Text > Update Data </Text>  
+        <Text style={ styles.homeText}> Update Data </Text>
         </TouchableOpacity>
 
         <TouchableOpacity style = { styles.homeScreenBtn }
         onPress = {
             () => navigation.push('Match')
         }>
-        <Text > Match Face </Text>  
-        </TouchableOpacity>  
+        <Text style={ styles.homeText}> Match Face </Text>
+        </TouchableOpacity>
 
         <TouchableOpacity style = { styles.homeScreenBtn }
         onPress = {
             () => navigation.push('ViewData')
         }>
-        <Text > View Data </Text>  
+        <Text style={ styles.homeText}> View Data </Text>
         </TouchableOpacity> 
-
+        </ImageBackground>
         </View>
     );
 }

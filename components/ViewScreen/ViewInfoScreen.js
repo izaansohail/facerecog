@@ -9,12 +9,15 @@ import {
     TextInput,
     Button,
     Image,
-    ActivityIndicator
+    ActivityIndicator,
+    ImageBackground,
 } from 'react-native';
 import { styles } from '../styles/styles';
 import axios from 'axios';
 import { SERVER_IP } from '../constants';
 import { ScrollView } from 'react-native-gesture-handler';
+import { background } from '../constants';
+import { image } from '../constants';
 
 export function ViewInfoScreen({route}) {
 
@@ -44,24 +47,92 @@ export function ViewInfoScreen({route}) {
     if(citizen && responseImage) {
         console.log(responseImage.Image1);
         return (
-        <ScrollView contentContainerStyle={{
-            alignItems: 'center', justifyContent: 'center', backgroundColor: '#003f5c'
-        }}>
-        <Text style ={{marginTop: 20}}>{citizen.name}</Text>  
-        <Text>{citizen.age}</Text>  
-        <Text>{citizen.cnic}</Text>  
-        <Text>{citizen.address}</Text>  
-        <Text>{citizen.phonenumber}</Text>  
-        <Text>{citizen.gender}</Text>  
-        <Text>{citizen.carreg}</Text>  
-        <Text>{citizen.email}</Text>
-       <View style={{ alignSelf: 'center', marginTop: 20}}>
-          <Image
+        <ScrollView>
+           <View style = { styles.container } > 
+
+        <ImageBackground source= {background} style = { styles.backgroundImage}  >
+
+            
+
+        <Text style = { styles.Insertlogo } >View Data</Text>
+
+        <View style = { styles.inputView } >
+        <TextInput style = { styles.inputText }
+        placeholder = "Name..."
+        placeholderTextColor = "white"
+        value={citizen.name}
+        disabled = {true}
+        />  
+        </View>
+        <View style = { styles.inputView } >
+        <TextInput style = { styles.inputText }
+        placeholder = "Age..."
+        placeholderTextColor = "white"
+        value={citizen.age}
+        disabled = {true}
+        />  
+        </View>
+
+        <View style = { styles.inputView } >
+        <TextInput style = { styles.inputText }
+        placeholder = "CNIC..."
+        placeholderTextColor = "white"
+        value={citizen.cnic}
+        disabled = {true}
+        />  
+        </View>
+
+        <View style = { styles.inputView } >
+        <TextInput style = { styles.inputText }
+        placeholder = "Address..."
+        placeholderTextColor = "white"
+        value={citizen.address}
+        disabled = {true}
+        />   
+        </View>
+
+        <View style = { styles.inputView } >
+        <TextInput style = { styles.inputText }
+        placeholder = "Phone Number..."
+        placeholderTextColor = "white"
+        value={citizen.phonenumber}
+        disabled = {true}
+        />   
+        </View>
+
+        <View style = { styles.inputView } >
+        <TextInput style = { styles.inputText }
+        placeholder = "Gender..."
+        placeholderTextColor = "white"
+        value={citizen.gender}
+        disabled = {true}
+        />   
+        </View>
+
+        <View style = { styles.inputView } >
+        <TextInput style = { styles.inputText }
+        placeholder = "Car Reg no..."
+        placeholderTextColor = "white"
+        value={citizen.carreg}
+        disabled = {true}
+        /> 
+        </View>
+
+        <View style = { styles.inputView } >
+        <TextInput style = { styles.inputText }
+        placeholder = "email..."
+        placeholderTextColor = "white"
+        value={citizen.email}
+        disabled = {true}
+        />
+        </View>
+
+        <Image
               source={{uri: responseImage.Image1}} 
               style={{width: 200, height: 200}}
               resizeMode="contain"
             />
-          </View>
+          {/* </View> */}
         <Image
               source={{uri: responseImage.Image2}}  
               style={{width: 200, height: 200, marginTop: 20}}
@@ -72,19 +143,26 @@ export function ViewInfoScreen({route}) {
               style={{width: 200, height: 200, marginTop: 20}}
               resizeMode="contain"
             />
+
+        
+
+        </ImageBackground>
+        </View>
         </ScrollView>
         )
     } else {
         return (
         //  <Text>Loading, please wait</Text>
         <View style={[styles.container]}>
+            <ImageBackground source= {background} style = { styles.backgroundImage}  >
+
+            <Text style = { styles.Insertlogo } >View Data</Text>
             <ActivityIndicator />
-            <ActivityIndicator size="large" />
-            <ActivityIndicator size="small" color="#0000ff" />
-            <ActivityIndicator size="large" color="#00ff00" />
+            <ActivityIndicator size="large" color="white"/>
+            </ImageBackground>
         </View>
 
         );
     }
-}
+ }
 

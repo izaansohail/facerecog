@@ -9,6 +9,7 @@ import {
     TextInput,
     Button,
     Image,
+    ImageBackground,
 } from 'react-native';
 import { styles } from '../styles/styles';
 import ImagePicker from 'react-native-image-picker';
@@ -17,6 +18,7 @@ import { Icon } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import axios from 'axios';
 import { SERVER_IP } from '../constants';
+import { background } from '../constants';
 
 export function FaceSearchScreen({route}) {
 
@@ -35,6 +37,9 @@ export function FaceSearchScreen({route}) {
     return ( 
 
         <View style = { styles.container } >
+
+        <ImageBackground source= {background} style = { styles.backgroundImage}>
+        <Text style = { styles.Insertlogo } >Match Face</Text>
         
         <View style = {{height: 300,
                 width: 250,
@@ -56,6 +61,8 @@ export function FaceSearchScreen({route}) {
                 }} />
 
         </View>
+
+        </ImageBackground>
         
         </View>
     );

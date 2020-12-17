@@ -31,36 +31,50 @@ const Stack = createStackNavigator();
 function App() {
     return ( 
         <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+        screenOptions={{
+                headerShown: true,
+                headerTransparent:true
+            }}>
         <Stack.Screen name = "Login"
         component = { loginScreen }
+        options = {{title: ""}}
         /> 
         <Stack.Screen name = "Home"
         component = { HomeScreen }
+        options = {{title: ""}}
         /> 
         <Stack.Screen name = "Insert"
         component = { InsertDataScreen }
+         options = {{title: ""}}
         /> 
         <Stack.Screen name = "Delete"
         component = { DeleteDataScreen }
+         options = {{title: ""}}
         /> 
         <Stack.Screen name = "Update"
         component = { UpdateDataScreen }
+        options = {{title: ""}}
         /> 
         <Stack.Screen name = "Match"
         component = { MatchFaceScreen }
+        options = {{title: ""}}
         /> 
         <Stack.Screen name = "UpdateDetail"
         component = { DataScreen }
+        options = {{title: ""}}
         />  
         <Stack.Screen name = "ViewData"
         component = { ViewScreen }
+        options = {{title: ""}}
         /> 
         <Stack.Screen name = "ViewInfo"
         component = { ViewInfoScreen }
+        options = {{title: ""}}
         />
         <Stack.Screen name = "FaceSearch"
         component = { FaceSearchScreen }
+        options = {{title: ""}}
         />
         </Stack.Navigator> 
         </NavigationContainer>

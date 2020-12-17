@@ -9,13 +9,19 @@ import {
     TextInput,
     Button,
     Image,
+    ImageBackground,
 } from 'react-native';
 import { styles } from '../styles/styles';
+import { background } from '../constants';
 
 export function ViewScreen({ navigation }){
     
  var[statecnic,setstatecnic] = React.useState({
-        CNIC: '000'
+        CNIC: ''
+    });
+
+    let [condition, setCondition] = React.useState({
+        wrong: '',
     });
 
     let cnicchange = (val) => {
@@ -23,26 +29,65 @@ export function ViewScreen({ navigation }){
             ...statecnic,
             CNIC: val,
         });
+        setCondition({
+            ...condition,
+            wrong: ''
+        });
+    };
+
+    clearState = () => {
+        setstatecnic({
+            ...statecnic,
+            CNIC: '',
+        });
+    };
+
+    insertAllHandle = (Cnic) => {
+        if(Cnic.length < 13) {
+            setCondition({
+                ...condition,
+                wrong: 'Invalid Entry! Please Re-enter'
+            });
+        }
+        else { 
+            setCondition({
+                ...condition,
+                wrong: ''
+            });
+            clearState();
+            navigation.push('ViewInfo', {cnic: statecnic.CNIC});
+        }
     };
 
     return ( <View style = { styles.container } >
+
+        <ImageBackground source= {background} style = { styles.backgroundImage}  >
+
+        <Text style = { styles.Insertlogo } >View Data</Text>
         
         <View style = { styles.inputView } >
         <TextInput style = { styles.inputText }
         placeholder = "cnic..."
+        keyboardType = "number-pad"
+        maxLength = {13}
         onChangeText = {(val) => cnicchange(val)}
         value={statecnic.CNIC}
-        placeholderTextColor = "#003f5c" />
-        </View>  
+        placeholderTextColor = "white" />
+        </View> 
+
+        <View >
+        <Text style = {styles.wronger}>{condition.wrong}</Text>
+        </View> 
 
         <TouchableOpacity style = { styles.loginBtn }
         onPress = {
-            () => navigation.push('ViewInfo', {cnic: statecnic.CNIC})
+            () => {insertAllHandle(statecnic.CNIC)}
         } >
         <View>
         <Text > Fetch Data </Text>  
         </View>  
         </TouchableOpacity>  
+        </ImageBackground>
         </View>
     );
 }

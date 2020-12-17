@@ -9,14 +9,20 @@ import {
     TextInput,
     Button,
     Image,
+    ImageBackground
 } from 'react-native';
 import { styles } from '../styles/styles';
+import { background } from '../constants';
 
 
 export function loginScreen({ navigation }) {
     const [data, setData] = React.useState({
         username: 'admin',
         password: 'Password',
+    });
+
+    let [condition, setCondition] = React.useState({
+        wrong: '',
     });
 
     textInputChange = (val) => {
@@ -39,6 +45,10 @@ export function loginScreen({ navigation }) {
             username: '',
             password: ''
         });
+        setCondition({
+            ...condition,
+            wrong: ''
+        })
     }
 
     loginHandle = (userName, password) => {
@@ -47,17 +57,23 @@ export function loginScreen({ navigation }) {
             navigation.navigate('Home');
             return;
         } else {
+            setCondition({
+                ...condition,
+                wrong: 'Incorrect Username and Password'
+            });
+            console.log(condition);
             return;
         }
     };
 
     return ( 
         <View style = { styles.container } >
+            <ImageBackground source= {background} style = { styles.backgroundImage}  >
         <Text style = { styles.logo } > Criminal Identification App </Text>
         <View style = { styles.inputView } >
         <TextInput style = { styles.inputText }
         placeholder = "Username..."
-        placeholderTextColor = "#003f5c"
+        placeholderTextColor = "white"
         onChangeText = {
             (val) => textInputChange(val)
         }
@@ -68,12 +84,15 @@ export function loginScreen({ navigation }) {
         <TextInput secureTextEntry = { true }
         style = { styles.inputText }
         placeholder = "Password..."
-        placeholderTextColor = "#003f5c"
+        placeholderTextColor = "white"
         onChangeText = {
             (val) => handlePasswordChange(val)
         }
         value = {data.password}
         />  
+        </View>
+        <View>
+        <Text>{condition.wrong}</Text>
         </View>
 
         <TouchableOpacity style = { styles.loginBtn }
@@ -84,6 +103,7 @@ export function loginScreen({ navigation }) {
         } >
         <Text style = { styles.loginText } > LOGIN </Text>   
         </TouchableOpacity> 
+        </ImageBackground>
         </View>
     );
 }
