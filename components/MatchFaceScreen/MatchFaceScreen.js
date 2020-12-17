@@ -174,7 +174,7 @@ export function MatchFaceScreen({navigation}) {
             () => navigation.push('FaceSearch')
         } >
         <View>
-        <Text > Face Search </Text>  
+        <Text style={styles.loginText}> Face Search </Text>  
         </View>  
         </TouchableOpacity> 
         </ImageBackground>

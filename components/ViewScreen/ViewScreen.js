@@ -84,7 +84,7 @@ export function ViewScreen({ navigation }){
             () => {insertAllHandle(statecnic.CNIC)}
         } >
         <View>
-        <Text > Fetch Data </Text>  
+        <Text style={styles.loginText}> Fetch Data </Text>  
         </View>  
         </TouchableOpacity>  
         </ImageBackground>
