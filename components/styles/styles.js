@@ -98,6 +98,24 @@ export const styles = StyleSheet.create({
         marginTop: 40,
         marginBottom: 10,
     },
+    logoutBtn: {
+        width: 50,
+        backgroundColor: 'transparent',
+        borderRadius: 25,
+        borderWidth: 1,
+        borderColor: 'white',
+        height: 50,
+        alignItems: 'center',
+        alignSelf: 'flex-end',
+        justifyContent: 'center',
+        marginTop: 1,
+        marginBottom: 0,
+        marginRight: 30,
+    },
+    logoutText: {
+        height: 30,
+        width: 30
+    },
     multiBtnContainer: {
         margin: 20,
         flexDirection: 'column',
@@ -125,5 +143,16 @@ export const styles = StyleSheet.create({
     wronger: {
         marginTop: 30,
         color: "red",
-    }
+    },
+    outer: {
+        color: "white",
+        fontSize: 19,
+        padding: 10
+    },
+    viewImage: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
+        alignItems: "baseline",
+      },
 });

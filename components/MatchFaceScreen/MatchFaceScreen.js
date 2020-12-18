@@ -169,10 +169,7 @@ export function MatchFaceScreen({navigation}) {
             </TouchableOpacity>
           </View>  
 
-        <TouchableOpacity style = { styles.loginBtn }
-        onPress = {
-            () => navigation.push('FaceSearch')
-        } >
+        <TouchableOpacity style = { styles.loginBtn }>
         <View>
         <Text style={styles.loginText}> Face Search </Text>  
         </View>  
