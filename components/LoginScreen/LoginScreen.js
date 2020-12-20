@@ -17,8 +17,8 @@ import { background } from '../constants';
 
 export function loginScreen({ navigation }) {
     const [data, setData] = React.useState({
-        username: 'admin',
-        password: 'Password',
+        username: '',
+        password: '',
     });
 
     let [condition, setCondition] = React.useState({

@@ -56,7 +56,7 @@ export function FaceSearchScreen({route}) {
 
 
     if(citizen && responseImage) {
-        console.log(responseImage.Image1);
+        console.log("here:" + responseImage.Image1);
         return (
         <ScrollView>
            <View style = { styles.container } > 
