@@ -21,11 +21,18 @@ import axios from 'axios';
 import { SERVER_IP } from '../constants';
 import { background } from '../constants';
 import { readDir } from 'react-native-fs';
+import { on_error } from '../constants';
 
 export function FaceSearchScreen({route}) {
 
     let [citizen, setCitizen] = React.useState();
     var [responseImage, setResponseImage] = React.useState();
+
+    let [CNIC, setCNIC] = React.useState();
+
+    let [Loading, setLoading] = React.useState();
+
+   
      
     React.useEffect(() => {
         axios.post("http://"+SERVER_IP+":5000/facematch", {
@@ -33,6 +40,8 @@ export function FaceSearchScreen({route}) {
             }).then(res => {
                 console.log("successfully send video");
                 console.log(res.data.Cnic);
+                setCNIC(res.data.Cnic);
+                setLoading("abcd");
                 axios.get("http://"+SERVER_IP+":5000/citizen", {
                     params: {
                         cnic: res.data.Cnic
@@ -56,14 +65,14 @@ export function FaceSearchScreen({route}) {
 
 
     if(citizen && responseImage) {
-        console.log("here:" + responseImage.Image1);
+        console.log(responseImage.Image1);
         return (
         <ScrollView>
            <View style = { styles.container } > 
 
         <ImageBackground source= {background} style = { styles.backgroundImage}  >
 
-            
+        
 
         <Text style = { styles.Insertlogo } >Challan</Text>
 
@@ -165,7 +174,23 @@ export function FaceSearchScreen({route}) {
         </View>
         </ScrollView>
         )
-    } else {
+    } else if(!CNIC && !citizen && Loading) {
+        return (
+            <View style={[styles.container]}>
+                <ImageBackground source= {background} style = { styles.backgroundImage}  >
+    
+                <Text style = { styles.Insertlogo } >View Data</Text>
+                <Image
+              source={on_error}  
+              style={{width: "100%", height: 200, marginTop: 1}}
+              resizeMode="contain"
+            />
+                </ImageBackground>
+            </View>
+    
+            );
+    } 
+    else {
         return (
         <View style={[styles.container]}>
             <ImageBackground source= {background} style = { styles.backgroundImage}  >
